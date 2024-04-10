@@ -108,6 +108,9 @@ func (s *Storage) Close() error {
 
 // Visited implements colly/storage.Visited()
 func (s *Storage) Visited(requestID uint64) error {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	
 	statement, err := s.dbh.Prepare("INSERT INTO visited (requestID, visited) VALUES (?, 1)")
 	if err != nil {
 		return err
@@ -194,6 +197,9 @@ func (s *Storage) Cookies(u *url.URL) string {
 
 // AddRequest implements queue.Storage.AddRequest() function
 func (s *Storage) AddRequest(r []byte) error {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	
 	//return s.Client.RPush(s.getQueueID(), r).Err()
 	statement, err := s.dbh.Prepare("INSERT INTO queue (data) VALUES (?)")
 	if err != nil {
