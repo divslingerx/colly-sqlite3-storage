@@ -1,7 +1,7 @@
 # colly-sqlite3-storage
 A SQLite3 storage back end  for the Colly web crawling/scraping framework https://go-colly.org
 
-This implementes both the crawling storage and the queue storage.
+This implements both the crawling storage and the queue storage.
 
 
 Example Usage:
@@ -39,7 +39,7 @@ func main() {
 	}
 
 	extensions.RandomUserAgent(c)
-	extensions.Referrer(c)
+	extensions.Referer(c)
 
 
 	q, _ := queue.New(8, storage)
